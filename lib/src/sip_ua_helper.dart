@@ -29,6 +29,7 @@ class SIPUAHelper extends EventManager {
   Settings _settings = Settings();
   UaSettings? _uaSettings;
   final Map<String?, Call> _calls = <String?, Call>{};
+  final Call? lastCall;
 
   RegistrationState _registerState =
       RegistrationState(state: RegistrationStateEnum.NONE);
@@ -110,7 +111,12 @@ class SIPUAHelper extends EventManager {
     return _calls[id];
   }
 
+  Call? findLastCall() {
+    return lastCall;
+  }
+
   Future<void> start(UaSettings uaSettings) async {
+    lastCall = null;
     if (_ua != null) {
       logger.w('UA instance already exist!, stopping UA and creating a one...');
       _ua!.stop();
@@ -197,6 +203,7 @@ class SIPUAHelper extends EventManager {
         }
         _calls[event.id] =
             Call(event.id, session, CallStateEnum.CALL_INITIATION);
+        lastCall = _calls[event.id];
         _notifyCallStateListeners(
             event, CallState(CallStateEnum.CALL_INITIATION));
       });
