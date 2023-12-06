@@ -18,6 +18,8 @@ import 'subscriber.dart';
 import 'transports/websocket_interface.dart';
 import 'ua.dart';
 
+import 'dart:math';
+
 class SIPUAHelper extends EventManager {
   SIPUAHelper({Logger? customLogger}) {
     if (customLogger != null) {
@@ -31,6 +33,8 @@ class SIPUAHelper extends EventManager {
   final Map<String?, Call> _calls = <String?, Call>{};
   Call? _lastCall = null;
 
+  int teste = Random().nextInt(1001);
+
   RegistrationState _registerState =
       RegistrationState(state: RegistrationStateEnum.NONE);
 
@@ -42,6 +46,10 @@ class SIPUAHelper extends EventManager {
       return _ua!.isRegistered();
     }
     return false;
+  }
+
+  int getTeste(){
+    return teste;
   }
 
   bool get connected {
@@ -211,7 +219,7 @@ class SIPUAHelper extends EventManager {
         setLastCall(event, null);
 
         logger.d('_lastCall => ${_lastCall}');
-        logger.d('_lastCall _calls[event.id] => ${_calls[event.id]}');
+        logger.d('_lastCall _calls[event.id] $teste => ${_calls[event.id]}');
         // logger.d('xxxxxx _calls[event.id] => ${_calls[event.id]}');
         _notifyCallStateListeners(
             event, CallState(CallStateEnum.CALL_INITIATION));
