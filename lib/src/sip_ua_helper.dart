@@ -116,7 +116,7 @@ class SIPUAHelper extends EventManager {
   }
 
   Future<void> start(UaSettings uaSettings) async {
-    # _lastCall = null;
+    _lastCall = null;
     if (_ua != null) {
       logger.w('UA instance already exist!, stopping UA and creating a one...');
       _ua!.stop();
@@ -203,7 +203,7 @@ class SIPUAHelper extends EventManager {
         }
         _calls[event.id] =
             Call(event.id, session, CallStateEnum.CALL_INITIATION);
-        # _lastCall = null;
+        _lastCall = null;
         _notifyCallStateListeners(
             event, CallState(CallStateEnum.CALL_INITIATION));
       });
