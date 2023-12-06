@@ -112,7 +112,7 @@ class SIPUAHelper extends EventManager {
   }
 
   Call? findLastCall() {
-    # return _lastCall;
+    return _lastCall;
   }
 
   Future<void> start(UaSettings uaSettings) async {
