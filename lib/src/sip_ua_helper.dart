@@ -186,6 +186,7 @@ class SIPUAHelper extends EventManager {
       });
 
       _ua!.on(EventRegistrationFailed(), (EventRegistrationFailed event) {
+        logger.d('entrou 2');
         logger.d('registrationFailed => ${event.cause}');
         _registerState = RegistrationState(
             state: RegistrationStateEnum.REGISTRATION_FAILED,
@@ -194,6 +195,8 @@ class SIPUAHelper extends EventManager {
       });
 
       _ua!.on(EventNewRTCSession(), (EventNewRTCSession event) {
+        logger.d('entrou 1');
+
         logger.d('newRTCSession => $event');
         RTCSession session = event.session!;
         if (session.direction == 'incoming') {
@@ -204,13 +207,15 @@ class SIPUAHelper extends EventManager {
         _calls[event.id] =
             Call(event.id, session, CallStateEnum.CALL_INITIATION);
         _lastCall = _calls[event.id];
-        logger.d('xxxxxx _lastCall => ${_lastCall}');
+        logger.d('_lastCall => ${_lastCall}');
         // logger.d('xxxxxx _calls[event.id] => ${_calls[event.id]}');
         _notifyCallStateListeners(
             event, CallState(CallStateEnum.CALL_INITIATION));
       });
 
       _ua!.on(EventNewMessage(), (EventNewMessage event) {
+        logger.d('entrou 4');
+
         logger.d('newMessage => $event');
         //Only notify incoming message to listener
         if (event.message!.direction == 'incoming') {
@@ -233,6 +238,8 @@ class SIPUAHelper extends EventManager {
       _options(voiceonly);
 
   Map<String, dynamic> _options([bool voiceonly = false]) {
+    logger.d('entrou 5');
+
     // Register callbacks to desired call events
     EventManager handlers = EventManager();
     handlers.on(EventCallConnecting(), (EventCallConnecting event) {
@@ -382,6 +389,8 @@ class SIPUAHelper extends EventManager {
       <SipUaHelperListener>{};
 
   void addSipUaHelperListener(SipUaHelperListener listener) {
+    logger.d('entrou 6');
+
     _sipUaHelperListeners.add(listener);
   }
 
