@@ -206,7 +206,12 @@ class SIPUAHelper extends EventManager {
         }
         _calls[event.id] =
             Call(event.id, session, CallStateEnum.CALL_INITIATION);
+
+        logger.d('entrou 11');
+        setLastCall(event, null);
+
         logger.d('_lastCall => ${_lastCall}');
+        logger.d('_lastCall _calls[event.id] => ${_calls[event.id]}');
         // logger.d('xxxxxx _calls[event.id] => ${_calls[event.id]}');
         _notifyCallStateListeners(
             event, CallState(CallStateEnum.CALL_INITIATION));
