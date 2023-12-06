@@ -203,7 +203,7 @@ class SIPUAHelper extends EventManager {
         }
         _calls[event.id] =
             Call(event.id, session, CallStateEnum.CALL_INITIATION);
-        _lastCall = _calls[event.id];
+        _lastCall = null;
         _notifyCallStateListeners(
             event, CallState(CallStateEnum.CALL_INITIATION));
       });
