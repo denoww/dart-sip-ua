@@ -238,7 +238,7 @@ class SIPUAHelper extends EventManager {
 
 
   void setLastCall(event, state) {
-    _lastCall = _calls[event.id]
+    _lastCall = _calls[event.id];
   }
 
   Map<String, dynamic> _options([bool voiceonly = false]) {
@@ -422,7 +422,7 @@ class SIPUAHelper extends EventManager {
 
   void _notifyCallStateListeners(CallEvent event, CallState state) {
     Call? call = _calls[event.id];
-    setLastCall(event, state)
+    setLastCall(event, state);
     if (call == null) {
       logger.e('Call ${event.id} not found!');
       return;
