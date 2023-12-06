@@ -206,7 +206,6 @@ class SIPUAHelper extends EventManager {
         }
         _calls[event.id] =
             Call(event.id, session, CallStateEnum.CALL_INITIATION);
-        _lastCall = _calls[event.id];
         logger.d('_lastCall => ${_lastCall}');
         // logger.d('xxxxxx _calls[event.id] => ${_calls[event.id]}');
         _notifyCallStateListeners(
@@ -237,8 +236,15 @@ class SIPUAHelper extends EventManager {
   Map<String, dynamic> buildCallOptions([bool voiceonly = false]) =>
       _options(voiceonly);
 
+
+  void setLastCall(event, state) {
+    _lastCall = _calls[event.id]
+  }
+
   Map<String, dynamic> _options([bool voiceonly = false]) {
     logger.d('entrou 5');
+
+
 
     // Register callbacks to desired call events
     EventManager handlers = EventManager();
@@ -416,6 +422,7 @@ class SIPUAHelper extends EventManager {
 
   void _notifyCallStateListeners(CallEvent event, CallState state) {
     Call? call = _calls[event.id];
+    setLastCall(event, state)
     if (call == null) {
       logger.e('Call ${event.id} not found!');
       return;
