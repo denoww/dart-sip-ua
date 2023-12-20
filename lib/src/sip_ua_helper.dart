@@ -21,7 +21,10 @@ import 'ua.dart';
 import 'dart:math';
 
 class SIPUAHelper extends EventManager {
+  int guidDaClasse = Random().nextInt(1001);
+
   SIPUAHelper({Logger? customLogger}) {
+    logger.d('guidDaClasse  => $guidDaClasse');
     if (customLogger != null) {
       logger = customLogger;
     }
@@ -48,7 +51,7 @@ class SIPUAHelper extends EventManager {
     return false;
   }
 
-  int getTeste(){
+  int getTeste() {
     return teste;
   }
 
@@ -249,15 +252,12 @@ class SIPUAHelper extends EventManager {
   Map<String, dynamic> buildCallOptions([bool voiceonly = false]) =>
       _options(voiceonly);
 
-
   void setLastCall(event, state) {
     _lastCall = _calls[event.id];
   }
 
   Map<String, dynamic> _options([bool voiceonly = false]) {
     logger.d('entrou 5');
-
-
 
     // Register callbacks to desired call events
     EventManager handlers = EventManager();
